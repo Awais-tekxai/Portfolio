@@ -53,14 +53,21 @@ Social icons use generic Lucide shapes (`Code2`, `UserRound`, `Mail`) because th
 
 ### GitHub Pages
 
-The workflow builds production `dist` and pushes it to the **`gh-pages` branch** (not your source `index.html` on `main`).
+The workflow builds `dist` and pushes it to the **`gh-pages` branch**. Your live site must use that branch — **not** `main`.
 
-1. Push to `main` and wait for the **Deploy to GitHub Pages** action to finish (green check on the Actions tab).
-2. **Settings → Pages → Build and deployment**
+1. Push to `main` and wait for **Deploy to GitHub Pages** (Actions tab → green check).
+2. **Settings → Pages → Build and deployment** — set exactly:
    - **Source:** Deploy from a branch
-   - **Branch:** `gh-pages` → `/ (root)`  
-   - **Do not** use `main` / `(root)` — that publishes dev files and causes `GET …/src/main.tsx` 404 errors.
-3. Open **https://awais-tekxai.github.io/Portfolio/** (hard refresh: Ctrl+Shift+R).
+   - **Branch:** `gh-pages` (not `main`)
+   - **Folder:** `/ (root)`
+3. Open **https://awais-tekxai.github.io/Portfolio/** and hard refresh (Ctrl+Shift+R).
+
+| Pages setting | Result |
+|---------------|--------|
+| `main` + `/ (root)` | Broken — loads `/src/main.tsx` (404) |
+| `gh-pages` + `/ (root)` | Correct — loads `/Portfolio/assets/…` |
+
+**Verify:** View page source. You must see `/Portfolio/assets/index-….js`. If you see `/src/main.tsx`, Pages is still pointed at `main`.
 
 If you rename the repository, update `VITE_BASE_PATH` in `.github/workflows/deploy-pages.yml` to `/<new-repo-name>/`.
 
