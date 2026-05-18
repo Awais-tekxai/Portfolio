@@ -4,7 +4,11 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
 // https://vite.dev/config/
+// GitHub project pages: https://<user>.github.io/<repo>/ — set VITE_BASE_PATH=/Portfolio/ in CI
+const base = process.env.VITE_BASE_PATH ?? '/'
+
 export default defineConfig({
+  base,
   plugins: [react(), tailwindcss()],
   optimizeDeps: {
     include: ['lottie-react'],

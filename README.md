@@ -49,12 +49,30 @@ Open the URL Vite prints (usually `http://localhost:5173`).
 
 Social icons use generic Lucide shapes (`Code2`, `UserRound`, `Mail`) because the pinned `lucide-react@1.x` typings on npm omit brand icons; swap to your preferred icon pack if needed.
 
-## Deployment (Vercel)
+## Deployment
+
+### GitHub Pages
+
+This repo includes `.github/workflows/deploy-pages.yml`, which builds `dist` with base path `/Portfolio/` and deploys via GitHub Actions.
+
+1. Push to `main`.
+2. In the repo on GitHub: **Settings → Pages → Build and deployment → Source** → choose **GitHub Actions** (not “Deploy from a branch” on the repo root — that serves raw `index.html` and causes `main.tsx` 404 errors).
+3. After the workflow succeeds, open `https://awais-tekxai.github.io/Portfolio/`.
+
+If you rename the repository, update `VITE_BASE_PATH` in `.github/workflows/deploy-pages.yml` to `/<new-repo-name>/`.
+
+Local preview of the Pages build (PowerShell):
+
+```powershell
+$env:VITE_BASE_PATH="/Portfolio/"; npm run build; npx vite preview --base /Portfolio/
+```
+
+### Vercel
 
 1. Push the repository to GitHub/GitLab/Bitbucket.
 2. In [Vercel](https://vercel.com), **Import** the repo.
 3. Framework preset: **Vite**. Build command: `npm run build`, output directory: `dist`.
-4. `vercel.json` includes a SPA rewrite so client-side routes resolve correctly.
+4. `vercel.json` includes a SPA rewrite so client-side routes resolve correctly. Do **not** set `VITE_BASE_PATH` on Vercel (site runs at domain root).
 
 ## Performance notes
 
