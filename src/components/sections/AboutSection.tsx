@@ -12,11 +12,7 @@ const milestones = [
     subtitle: `${PROFILE.education.school} · ${PROFILE.education.period}`,
     detail: PROFILE.education.location,
   },
-  {
-    title: 'Core focus',
-    subtitle: 'Product-grade interfaces',
-    detail: 'Dashboards, CMS, and data-heavy experiences with React ecosystems.',
-  },
+  ...PROFILE.aboutMilestones.slice(1),
 ] as const
 
 export function AboutSection() {

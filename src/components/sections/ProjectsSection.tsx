@@ -27,7 +27,10 @@ export function ProjectsSection() {
           <div className="mb-12 max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.45em] text-slate-500">Projects</p>
             <h2 className="mt-2 font-display text-3xl text-slate-50 sm:text-4xl">Selected builds with cinematic depth</h2>
-            <p className="mt-3 text-sm text-slate-400">Role-based platforms, LMS, and AI-assisted commerce experiences.</p>
+            <p className="mt-3 text-sm text-slate-400">
+              Selected work spanning multi-role dashboards, real-time features, and production-grade React & Next.js
+              applications.
+            </p>
           </div>
         </Reveal>
 

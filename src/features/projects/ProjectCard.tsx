@@ -1,5 +1,5 @@
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion'
-import { ExternalLink, Code2, Sparkles } from 'lucide-react'
+import { ExternalLink, Sparkles } from 'lucide-react'
 import { type MouseEvent, useRef } from 'react'
 
 import { MagneticButton } from '@/components/common/MagneticButton'
@@ -89,17 +89,10 @@ export function ProjectCard({ project, onOpen }: ProjectCardProps) {
                   View details
                 </Button>
               </MagneticButton>
-              {project.links?.live && (
+              {project.links?.live?.startsWith('http') && (
                 <Button variant="default" className="rounded-full" asChild>
                   <a href={project.links.live} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2">
                     Live <ExternalLink className="h-4 w-4" />
-                  </a>
-                </Button>
-              )}
-              {project.links?.github && (
-                <Button variant="ghost" className="rounded-full" asChild>
-                  <a href={project.links.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2">
-                    GitHub <Code2 className="h-4 w-4" />
                   </a>
                 </Button>
               )}

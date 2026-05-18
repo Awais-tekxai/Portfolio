@@ -3,7 +3,7 @@ export type SectionId = 'hero' | 'about' | 'skills' | 'experience' | 'projects' 
 export interface SocialLink {
   label: string
   href: string
-  icon: 'code' | 'user' | 'mail'
+  icon: 'github' | 'linkedin' | 'mail'
 }
 
 export interface ExperienceItem {
@@ -21,5 +21,5 @@ export interface ProjectItem {
   description: string
   features: string[]
   stack: string[]
-  links?: { live?: string; github?: string }
+  links?: { live?: string }
 }
