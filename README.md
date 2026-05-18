@@ -53,11 +53,14 @@ Social icons use generic Lucide shapes (`Code2`, `UserRound`, `Mail`) because th
 
 ### GitHub Pages
 
-This repo includes `.github/workflows/deploy-pages.yml`, which builds `dist` with base path `/Portfolio/` and deploys via GitHub Actions.
+The workflow builds production `dist` and pushes it to the **`gh-pages` branch** (not your source `index.html` on `main`).
 
-1. Push to `main`.
-2. In the repo on GitHub: **Settings → Pages → Build and deployment → Source** → choose **GitHub Actions** (not “Deploy from a branch” on the repo root — that serves raw `index.html` and causes `main.tsx` 404 errors).
-3. After the workflow succeeds, open `https://awais-tekxai.github.io/Portfolio/`.
+1. Push to `main` and wait for the **Deploy to GitHub Pages** action to finish (green check on the Actions tab).
+2. **Settings → Pages → Build and deployment**
+   - **Source:** Deploy from a branch
+   - **Branch:** `gh-pages` → `/ (root)`  
+   - **Do not** use `main` / `(root)` — that publishes dev files and causes `GET …/src/main.tsx` 404 errors.
+3. Open **https://awais-tekxai.github.io/Portfolio/** (hard refresh: Ctrl+Shift+R).
 
 If you rename the repository, update `VITE_BASE_PATH` in `.github/workflows/deploy-pages.yml` to `/<new-repo-name>/`.
 
