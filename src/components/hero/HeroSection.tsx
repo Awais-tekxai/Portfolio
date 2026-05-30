@@ -28,8 +28,9 @@ export function HeroSection() {
     <SectionShell
       id="hero"
       className={cn(
-        'relative min-h-[100dvh] overflow-x-clip overflow-y-visible py-24 lg:py-28',
-        'max-lg:pt-[min(34dvh,320px)]',
+        'relative min-h-[100dvh] overflow-x-clip overflow-y-visible pt-20 pb-32 sm:pt-24 sm:pb-36 lg:py-28',
+        'max-lg:pt-[calc(4.75rem+env(safe-area-inset-top,0px)+min(34dvh,300px))]',
+        'sm:max-lg:pt-[calc(4.75rem+env(safe-area-inset-top,0px)+min(38dvh,340px))]',
       )}
     >
       <GridBackground />
@@ -38,7 +39,7 @@ export function HeroSection() {
       <div
         className={cn(
           'relative z-10 mx-auto flex w-full max-w-[1600px] flex-col gap-12 px-5 sm:px-8',
-          'lg:flex-row lg:items-start lg:justify-between lg:gap-8 lg:px-10 lg:pt-8 xl:px-14',
+          'social-rail-inset lg:flex-row lg:items-start lg:justify-between lg:gap-8 lg:pr-10 lg:pt-8 xl:pr-14',
         )}
       >
         <motion.div
@@ -92,13 +93,26 @@ export function HeroSection() {
               </Button>
             </MagneticButton>
           </motion.div>
+
+          <motion.button
+            variants={fadeUp}
+            type="button"
+            onClick={scrollHint}
+            className="group mt-10 flex w-full flex-col items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.4em] text-slate-500 lg:hidden"
+            aria-label="Scroll to about section"
+          >
+            <span className="transition group-hover:text-cyan-300">Scroll</span>
+            <motion.span animate={{ y: [0, 6, 0] }} transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}>
+              <ChevronDown className="h-5 w-5 text-cyan-300/80" />
+            </motion.span>
+          </motion.button>
         </motion.div>
       </div>
 
       <button
         type="button"
         onClick={scrollHint}
-        className="group absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 flex-col items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.4em] text-slate-500 max-lg:bottom-24"
+        className="group absolute bottom-8 left-1/2 z-20 hidden -translate-x-1/2 flex-col items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.4em] text-slate-500 lg:flex"
         aria-label="Scroll to about section"
       >
         <span className="transition group-hover:text-cyan-300">Scroll</span>

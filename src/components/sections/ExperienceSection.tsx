@@ -11,7 +11,7 @@ export function ExperienceSection() {
       id="experience"
       className="relative border-t border-white/5 bg-[#020014]/90 py-28 backdrop-blur-xl before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_top,rgba(124,58,237,0.14),transparent_55%)] before:content-['']"
     >
-      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 social-rail-inset">
         <Reveal>
           <div className="mb-12 max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.45em] text-slate-500">Experience</p>
@@ -33,7 +33,7 @@ export function ExperienceSection() {
               variants={fadeUp}
               className="relative rounded-3xl border border-white/10 bg-white/[0.03] p-6 shadow-[0_0_60px_rgba(15,23,42,0.65)] backdrop-blur-xl sm:p-8"
             >
-              <span className="absolute -left-[26px] top-8 hidden h-3 w-3 rounded-full border border-cyan-300/60 bg-gradient-to-br from-violet-500 to-cyan-400 shadow-[0_0_24px_rgba(34,211,238,0.9)] sm:block" />
+              <span className="absolute -left-[18px] top-8 h-2.5 w-2.5 rounded-full border border-cyan-300/60 bg-gradient-to-br from-violet-500 to-cyan-400 shadow-[0_0_18px_rgba(34,211,238,0.75)] sm:-left-[26px] sm:h-3 sm:w-3 sm:shadow-[0_0_24px_rgba(34,211,238,0.9)]" />
               <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <p className="text-xs uppercase tracking-[0.35em] text-cyan-300/90">

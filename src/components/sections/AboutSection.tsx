@@ -21,11 +21,11 @@ export function AboutSection() {
       id="about"
       className="border-t border-white/5 bg-transparent py-28"
     >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:max-w-[1600px] lg:px-12">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 social-rail-inset lg:max-w-[1600px] lg:pr-12">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-start lg:gap-16">
           {/* Transparent lane: fixed WebGL (GlobalRobotCanvas) shows through here next to copy */}
           <div
-            className="pointer-events-none hidden min-h-[min(72vh,760px)] lg:col-start-1 lg:block"
+            className="pointer-events-none hidden min-h-[min(72dvh,760px)] lg:col-start-1 lg:block"
             aria-hidden
           />
 

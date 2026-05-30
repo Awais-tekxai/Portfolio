@@ -22,7 +22,7 @@ export function ProjectsSection() {
 
   return (
     <SectionShell id="projects" className="border-t border-white/5 bg-[#020014]/88 py-28 backdrop-blur-xl">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 social-rail-inset">
         <Reveal>
           <div className="mb-12 max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.45em] text-slate-500">Projects</p>

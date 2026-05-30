@@ -2,7 +2,7 @@ import { Canvas } from '@react-three/fiber'
 import { Environment, SoftShadows } from '@react-three/drei'
 import { Suspense, useMemo } from 'react'
 
-import { RobotFollower } from '@/components/robot/RobotFollower'
+import { ReactFollower } from '@/components/robot/ReactFollower'
 import { ScrollRig } from '@/components/robot/ScrollRig'
 import { cn } from '@/lib/utils'
 import { usePortfolioStore } from '@/store/usePortfolioStore'
@@ -25,17 +25,21 @@ export type RobotSceneVariant = 'card' | 'backdrop'
 
 interface RobotSceneProps {
   variant?: RobotSceneVariant
+  /** Lower max DPR on mobile / reduced-motion for performance */
+  dprCap?: number
 }
 
-export function RobotScene({ variant = 'card' }: RobotSceneProps) {
+export function RobotScene({ variant = 'card', dprCap }: RobotSceneProps) {
   const isBackdrop = variant === 'backdrop'
 
   const dpr = useMemo(() => {
     const coarse = window.matchMedia('(pointer: coarse)').matches
-    if (isBackdrop && coarse) return [1, 1.15] as [number, number]
-    if (isBackdrop) return [1, 1.65] as [number, number]
-    return coarse ? ([1, 1.25] as [number, number]) : ([1, 1.75] as [number, number])
-  }, [isBackdrop])
+    let max = coarse ? 1.25 : 1.75
+    if (isBackdrop && coarse) max = 1.15
+    else if (isBackdrop) max = 1.65
+    if (dprCap !== undefined) max = Math.min(max, dprCap)
+    return [1, max] as [number, number]
+  }, [isBackdrop, dprCap])
 
   const bgHex = '#06060d'
 
@@ -71,7 +75,7 @@ export function RobotScene({ variant = 'card' }: RobotSceneProps) {
           <DynamicLights />
           {isBackdrop ? null : <SoftShadows size={18} samples={12} focus={0.6} />}
           <ScrollRig />
-          <RobotFollower />
+          <ReactFollower />
           <Environment preset="city" background={false} />
         </Suspense>
       </Canvas>

@@ -5,7 +5,7 @@ import { SkillsMarquee } from '@/components/skills/SkillsMarquee'
 export function SkillsSection() {
   return (
     <SectionShell id="skills" className="border-t border-white/5 bg-[#030014]/90 py-28 backdrop-blur-xl">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 social-rail-inset">
         <Reveal>
           <div className="mb-12 max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.45em] text-slate-500">Skills</p>

@@ -18,7 +18,7 @@ export function SectionShell({ id, children, className, sceneBoost = 0.72 }: Sec
   return (
     <section
       id={id}
-      className={cn('relative scroll-mt-28 snap-start', className)}
+      className={cn('relative scroll-mt-24 snap-start sm:scroll-mt-28', className)}
       onMouseEnter={() => setIntensity(sceneBoost)}
       onMouseLeave={() => setIntensity(0.34)}
     >

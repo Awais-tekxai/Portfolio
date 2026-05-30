@@ -22,7 +22,8 @@ export function SocialRail() {
     <nav
       className={cn(
         'fixed z-[118] flex gap-3',
-        'bottom-6 left-1/2 -translate-x-1/2 flex-row sm:bottom-8',
+        'bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 flex-row',
+        'sm:bottom-[max(1.75rem,env(safe-area-inset-bottom))]',
         'lg:bottom-auto lg:left-5 lg:top-[38%] lg:flex-col lg:gap-4 lg:translate-x-0 xl:left-6',
       )}
       aria-label="Social links"

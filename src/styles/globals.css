@@ -72,6 +72,11 @@
       0 0 120px rgba(124, 58, 237, 0.18);
   }
 
+  /** Clears fixed left social rail on desktop (44px btn + 20px inset + gap) */
+  .social-rail-inset {
+    @apply lg:pl-[5.25rem] xl:pl-[5.25rem] 2xl:pl-14;
+  }
+
   .skills-marquee-fade {
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
     mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);

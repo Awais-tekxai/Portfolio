@@ -21,16 +21,27 @@ export function RootLayout() {
   const loaderComplete = usePortfolioStore((s) => s.loaderComplete)
   const setPointerNorm = usePortfolioStore((s) => s.setPointerNorm)
 
-  const onMove = useThrottleCallback((e: MouseEvent) => {
-    const x = (e.clientX / window.innerWidth) * 2 - 1
-    const y = -(e.clientY / window.innerHeight) * 2 + 1
+  const onPointer = useThrottleCallback((clientX: number, clientY: number) => {
+    const x = (clientX / window.innerWidth) * 2 - 1
+    const y = -(clientY / window.innerHeight) * 2 + 1
     setPointerNorm(x, y)
   }, 16)
 
   useEffect(() => {
+    const onMove = (e: MouseEvent) => onPointer(e.clientX, e.clientY)
+    const onTouch = (e: TouchEvent) => {
+      const touch = e.touches[0]
+      if (touch) onPointer(touch.clientX, touch.clientY)
+    }
     window.addEventListener('mousemove', onMove)
-    return () => window.removeEventListener('mousemove', onMove)
-  }, [onMove])
+    window.addEventListener('touchmove', onTouch, { passive: true })
+    window.addEventListener('touchstart', onTouch, { passive: true })
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('touchmove', onTouch)
+      window.removeEventListener('touchstart', onTouch)
+    }
+  }, [onPointer])
 
   useSectionSpy()
 
@@ -71,7 +82,7 @@ export function RootLayout() {
       <SocialRail />
       <DynamicNavbar />
       <CustomCursor />
-      <main id="main-content" className="relative snap-y snap-proximity">
+      <main id="main-content" className="relative snap-y snap-proximity max-lg:snap-none">
         {/* Outside PageTransition: ancestor `filter` on motion breaks WebGL compositing */}
         {location.pathname === '/' ? <GlobalRobotCanvas /> : null}
         <AnimatePresence mode="wait">

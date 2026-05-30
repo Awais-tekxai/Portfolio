@@ -28,8 +28,11 @@ export function ContactSection() {
   }
 
   return (
-    <SectionShell id="contact" className="border-t border-white/5 bg-gradient-to-b from-[#020014]/93 via-[#050816]/95 to-[#020014] py-28 backdrop-blur-xl">
-      <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.05fr]">
+    <SectionShell
+      id="contact"
+      className="border-t border-white/5 bg-gradient-to-b from-[#020014]/93 via-[#050816]/95 to-[#020014] py-28 pb-[max(8rem,calc(7rem+env(safe-area-inset-bottom)))] backdrop-blur-xl lg:pb-28"
+    >
+      <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 social-rail-inset lg:grid-cols-[0.95fr_1.05fr]">
         <Reveal>
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.45em] text-slate-500">Contact</p>

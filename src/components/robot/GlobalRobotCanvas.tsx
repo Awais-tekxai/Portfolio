@@ -1,6 +1,8 @@
 import { lazy, Suspense, useEffect } from 'react'
 
 import { useLenis } from '@/hooks/useLenis'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { cn } from '@/lib/utils'
 import { usePortfolioStore } from '@/store/usePortfolioStore'
 
@@ -22,6 +24,8 @@ export function GlobalRobotCanvas() {
   const lenis = useLenis()
   const activeSection = usePortfolioStore((s) => s.activeSection)
   const fadeOut = activeSection !== 'hero' && activeSection !== 'about'
+  const isDesktop = useMediaQuery('(min-width: 1024px)')
+  const reducedMotion = usePrefersReducedMotion()
 
   useEffect(() => {
     if (!lenis) return
@@ -81,14 +85,16 @@ export function GlobalRobotCanvas() {
   return (
     <div
       className={cn(
-        'pointer-events-none fixed inset-x-0 top-0 z-[2] w-full',
-        'h-[min(46dvh,480px)] lg:inset-0 lg:h-dvh lg:min-h-0',
+        'pointer-events-none fixed inset-x-0 z-[2] w-full',
+        'top-[calc(4.75rem+env(safe-area-inset-top,0px))] h-[min(34dvh,300px)]',
+        'sm:h-[min(38dvh,340px)]',
+        'lg:top-0 lg:inset-0 lg:h-dvh lg:min-h-0',
         'transition-opacity duration-500',
         fadeOut ? 'opacity-0' : 'opacity-100',
       )}
     >
       <Suspense fallback={null}>
-        <RobotScene variant="backdrop" />
+        <RobotScene variant="backdrop" dprCap={isDesktop ? undefined : reducedMotion ? 1 : 1.25} />
       </Suspense>
     </div>
   )
