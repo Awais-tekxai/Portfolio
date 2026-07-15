@@ -2,7 +2,7 @@ import { Canvas } from '@react-three/fiber'
 import { Environment, SoftShadows } from '@react-three/drei'
 import { Suspense, useMemo } from 'react'
 
-import { ReactFollower } from '@/components/robot/ReactFollower'
+import { UiShardFollower } from '@/components/robot/UiShardFollower'
 import { ScrollRig } from '@/components/robot/ScrollRig'
 import { cn } from '@/lib/utils'
 import { usePortfolioStore } from '@/store/usePortfolioStore'
@@ -75,7 +75,7 @@ export function RobotScene({ variant = 'card', dprCap }: RobotSceneProps) {
           <DynamicLights />
           {isBackdrop ? null : <SoftShadows size={18} samples={12} focus={0.6} />}
           <ScrollRig />
-          <ReactFollower />
+          <UiShardFollower />
           <Environment preset="city" background={false} />
         </Suspense>
       </Canvas>

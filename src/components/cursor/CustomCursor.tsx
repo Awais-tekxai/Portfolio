@@ -25,7 +25,7 @@ export function CustomCursor() {
   if (reduced) return null
 
   return (
-    <div className="pointer-events-none fixed inset-0 z-[190] hidden mix-blend-screen lg:block">
+    <div className="pointer-events-none fixed inset-0 z-[250] hidden mix-blend-screen lg:block">
       <motion.div
         style={{ translateX: x, translateY: y }}
         className={cn(
