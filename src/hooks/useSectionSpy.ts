@@ -7,11 +7,14 @@ import type { SectionId } from '@/types'
 const ORDER: SectionId[] = ['hero', 'about', 'skills', 'experience', 'projects', 'contact']
 
 export function useSectionSpy() {
-  const setActive = usePortfolioStore((s) => s.setActiveSection)
+  const setActive = usePortfolioStore.getState().setActiveSection
   const lenis = useLenis()
 
   useEffect(() => {
     if (!lenis) return
+
+    let lastId: SectionId = usePortfolioStore.getState().activeSection
+    let rafScheduled = false
 
     const compute = () => {
       const mid = window.innerHeight * 0.38
@@ -29,13 +32,26 @@ export function useSectionSpy() {
           best = id
         }
       }
-      setActive(best)
+
+      if (best !== lastId) {
+        lastId = best
+        setActive(best)
+      }
     }
 
-    lenis.on('scroll', compute)
+    const onScroll = () => {
+      if (rafScheduled) return
+      rafScheduled = true
+      requestAnimationFrame(() => {
+        rafScheduled = false
+        compute()
+      })
+    }
+
+    lenis.on('scroll', onScroll)
     compute()
     return () => {
-      lenis.off('scroll', compute)
+      lenis.off('scroll', onScroll)
     }
   }, [lenis, setActive])
 }
