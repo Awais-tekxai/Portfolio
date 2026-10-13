@@ -8,48 +8,52 @@ import { usePortfolioStore } from '@/store/usePortfolioStore'
 const BAR_HEIGHTS = [0.18, 0.34, 0.26, 0.48, 0.38, 0.55, 0.3, 0.44] as const
 const CODE_WIDTHS = [0.72, 0.48, 0.62, 0.38, 0.55] as const
 
+/** Cheap “glass” look — no transmission / meshPhysical (those kill FPS). */
+function GlassPlate({
+  args,
+  color = '#0b1020',
+}: {
+  args: [number, number, number]
+  color?: string
+}) {
+  return (
+    <mesh>
+      <boxGeometry args={args} />
+      <meshStandardMaterial
+        color={color}
+        metalness={0.55}
+        roughness={0.28}
+        transparent
+        opacity={0.88}
+        envMapIntensity={0.6}
+      />
+    </mesh>
+  )
+}
+
 function DashboardPanel() {
   return (
     <group>
-      {/* Glass plate */}
-      <mesh castShadow>
-        <boxGeometry args={[1.55, 1.05, 0.04]} />
-        <meshPhysicalMaterial
-          color="#0b1020"
-          metalness={0.2}
-          roughness={0.2}
-          transmission={0.28}
-          thickness={0.6}
-          ior={1.4}
-          clearcoat={0.85}
-          clearcoatRoughness={0.12}
-          transparent
-          opacity={0.92}
-          envMapIntensity={1.1}
-        />
-      </mesh>
+      <GlassPlate args={[1.55, 1.05, 0.04]} />
 
-      {/* Soft face glow */}
       <mesh position={[0, 0, 0.025]}>
         <planeGeometry args={[1.48, 0.98]} />
         <meshBasicMaterial color="#7c3aed" transparent opacity={0.06} depthWrite={false} />
       </mesh>
 
-      {/* Top header bar */}
       <mesh position={[0, 0.4, 0.03]}>
         <boxGeometry args={[1.35, 0.08, 0.012]} />
-        <meshStandardMaterial color="#1e1b4b" metalness={0.3} roughness={0.35} />
+        <meshStandardMaterial color="#1e1b4b" metalness={0.35} roughness={0.4} />
       </mesh>
       <mesh position={[-0.48, 0.4, 0.038]}>
         <boxGeometry args={[0.28, 0.028, 0.008]} />
-        <meshStandardMaterial color="#22d3ee" emissive="#22d3ee" emissiveIntensity={1.1} toneMapped={false} />
+        <meshStandardMaterial color="#22d3ee" emissive="#22d3ee" emissiveIntensity={1.05} toneMapped={false} />
       </mesh>
       <mesh position={[-0.18, 0.4, 0.038]}>
         <boxGeometry args={[0.16, 0.022, 0.008]} />
-        <meshStandardMaterial color="#a78bfa" emissive="#a78bfa" emissiveIntensity={0.7} toneMapped={false} />
+        <meshStandardMaterial color="#a78bfa" emissive="#a78bfa" emissiveIntensity={0.65} toneMapped={false} />
       </mesh>
 
-      {/* KPI chips */}
       {[
         { x: -0.42, color: '#22d3ee' },
         { x: 0, color: '#a78bfa' },
@@ -58,25 +62,24 @@ function DashboardPanel() {
         <group key={chip.x} position={[chip.x, 0.22, 0.035]}>
           <mesh>
             <boxGeometry args={[0.34, 0.16, 0.014]} />
-            <meshStandardMaterial color="#111827" metalness={0.25} roughness={0.4} />
+            <meshStandardMaterial color="#111827" metalness={0.3} roughness={0.45} />
           </mesh>
           <mesh position={[0, 0.02, 0.01]}>
             <boxGeometry args={[0.18, 0.028, 0.006]} />
             <meshStandardMaterial
               color={chip.color}
               emissive={chip.color}
-              emissiveIntensity={1.2}
+              emissiveIntensity={1.1}
               toneMapped={false}
             />
           </mesh>
           <mesh position={[0, -0.035, 0.01]}>
             <boxGeometry args={[0.12, 0.016, 0.006]} />
-            <meshStandardMaterial color="#64748b" metalness={0.1} roughness={0.5} />
+            <meshStandardMaterial color="#64748b" metalness={0.1} roughness={0.55} />
           </mesh>
         </group>
       ))}
 
-      {/* Chart bars */}
       {BAR_HEIGHTS.map((h, i) => {
         const x = -0.52 + i * 0.145
         const color = i % 2 === 0 ? '#22d3ee' : '#a78bfa'
@@ -86,19 +89,18 @@ function DashboardPanel() {
             <meshStandardMaterial
               color={color}
               emissive={color}
-              emissiveIntensity={0.85}
-              metalness={0.2}
-              roughness={0.25}
+              emissiveIntensity={0.8}
+              metalness={0.25}
+              roughness={0.3}
               toneMapped={false}
             />
           </mesh>
         )
       })}
 
-      {/* Chart baseline */}
       <mesh position={[0, -0.3, 0.03]}>
         <boxGeometry args={[1.2, 0.008, 0.006]} />
-        <meshStandardMaterial color="#334155" metalness={0.2} roughness={0.5} />
+        <meshStandardMaterial color="#334155" metalness={0.2} roughness={0.55} />
       </mesh>
     </group>
   )
@@ -107,29 +109,16 @@ function DashboardPanel() {
 function CodePanel() {
   return (
     <group>
-      <mesh castShadow>
-        <boxGeometry args={[0.95, 0.72, 0.035]} />
-        <meshPhysicalMaterial
-          color="#080e1c"
-          metalness={0.25}
-          roughness={0.22}
-          transmission={0.2}
-          thickness={0.45}
-          clearcoat={0.7}
-          transparent
-          opacity={0.94}
-        />
-      </mesh>
+      <GlassPlate args={[0.95, 0.72, 0.035]} color="#080e1c" />
 
-      {/* Window dots */}
       {[
         [-0.32, '#f87171'],
         [-0.22, '#fbbf24'],
         [-0.12, '#34d399'],
       ].map(([x, color]) => (
         <mesh key={String(x)} position={[x as number, 0.26, 0.03]}>
-          <sphereGeometry args={[0.022, 12, 12]} />
-          <meshStandardMaterial color={color as string} emissive={color as string} emissiveIntensity={0.8} />
+          <sphereGeometry args={[0.022, 8, 8]} />
+          <meshStandardMaterial color={color as string} emissive={color as string} emissiveIntensity={0.75} />
         </mesh>
       ))}
 
@@ -142,7 +131,7 @@ function CodePanel() {
             <meshStandardMaterial
               color={color}
               emissive={color}
-              emissiveIntensity={i < 3 ? 0.7 : 0.25}
+              emissiveIntensity={i < 3 ? 0.65 : 0.22}
               toneMapped={false}
             />
           </mesh>
@@ -155,22 +144,10 @@ function CodePanel() {
 function StatCard() {
   return (
     <group>
-      <mesh castShadow>
-        <boxGeometry args={[0.7, 0.48, 0.03]} />
-        <meshPhysicalMaterial
-          color="#0c1222"
-          metalness={0.2}
-          roughness={0.25}
-          transmission={0.22}
-          thickness={0.4}
-          clearcoat={0.6}
-          transparent
-          opacity={0.93}
-        />
-      </mesh>
+      <GlassPlate args={[0.7, 0.48, 0.03]} color="#0c1222" />
       <mesh position={[0, 0.1, 0.025]}>
         <boxGeometry args={[0.38, 0.04, 0.008]} />
-        <meshStandardMaterial color="#67e8f9" emissive="#67e8f9" emissiveIntensity={1.3} toneMapped={false} />
+        <meshStandardMaterial color="#67e8f9" emissive="#67e8f9" emissiveIntensity={1.2} toneMapped={false} />
       </mesh>
       <mesh position={[0, -0.02, 0.025]}>
         <boxGeometry args={[0.28, 0.025, 0.006]} />
@@ -178,7 +155,7 @@ function StatCard() {
       </mesh>
       <mesh position={[0, -0.12, 0.025]}>
         <boxGeometry args={[0.5, 0.01, 0.005]} />
-        <meshStandardMaterial color="#7c3aed" emissive="#7c3aed" emissiveIntensity={0.6} />
+        <meshStandardMaterial color="#7c3aed" emissive="#7c3aed" emissiveIntensity={0.55} />
       </mesh>
     </group>
   )
@@ -191,6 +168,7 @@ export const UiShardFollower = memo(function UiShardFollower() {
   const statRef = useRef<THREE.Group>(null)
   const glowRef = useRef<THREE.PointLight>(null)
   const rimRef = useRef<THREE.PointLight>(null)
+  const satelliteVisible = useRef(true)
 
   const pos = useRef(new THREE.Vector3(0, 0.2, 0.15))
   const vel = useRef(new THREE.Vector3())
@@ -198,10 +176,6 @@ export const UiShardFollower = memo(function UiShardFollower() {
   const scratch = useRef(new THREE.Vector3())
   const target = useRef(new THREE.Vector3(0, 0.2, 0.15))
   const journeySmoothed = useRef(0)
-
-  const pointerNorm = usePortfolioStore((s) => s.pointerNorm)
-  const sceneIntensity = usePortfolioStore((s) => s.sceneIntensity)
-  const activeSection = usePortfolioStore((s) => s.activeSection)
 
   const colors = useMemo(
     () => ({
@@ -218,9 +192,12 @@ export const UiShardFollower = memo(function UiShardFollower() {
     const time = state.clock.elapsedTime
     const isMobile = state.size.width < 1024
 
-    const targetJourney = usePortfolioStore.getState().robotJourney
+    // Read store in the frame loop — avoid React re-renders on pointer moves
+    const store = usePortfolioStore.getState()
+    const { pointerNorm, sceneIntensity, activeSection, robotJourney } = store
+
     const journeyLerp = 1 - Math.pow(0.000008, dt)
-    journeySmoothed.current = THREE.MathUtils.lerp(journeySmoothed.current, targetJourney, journeyLerp)
+    journeySmoothed.current = THREE.MathUtils.lerp(journeySmoothed.current, robotJourney, journeyLerp)
     const t = journeySmoothed.current
 
     const pointerDamp = 1 - t * 0.75
@@ -268,13 +245,21 @@ export const UiShardFollower = memo(function UiShardFollower() {
       mainRef.current.position.y = Math.sin(time * 1.2) * 0.015
     }
 
-    if (codeRef.current) {
+    // Hide satellite panels on small viewports to cut draw calls
+    const showSatellites = !isMobile
+    if (showSatellites !== satelliteVisible.current) {
+      satelliteVisible.current = showSatellites
+      if (codeRef.current) codeRef.current.visible = showSatellites
+      if (statRef.current) statRef.current.visible = showSatellites
+    }
+
+    if (showSatellites && codeRef.current) {
       codeRef.current.position.y = 0.18 + Math.sin(time * 1.4 + 1) * 0.04
       codeRef.current.rotation.z = -0.18 + Math.sin(time * 0.6) * 0.03
       codeRef.current.rotation.y = 0.25 + pointerNorm.x * 0.08 * pointerMix
     }
 
-    if (statRef.current) {
+    if (showSatellites && statRef.current) {
       statRef.current.position.y = -0.28 + Math.sin(time * 1.1 + 2.2) * 0.035
       statRef.current.rotation.z = 0.22 + Math.sin(time * 0.55 + 0.8) * 0.025
       statRef.current.rotation.y = -0.3 + pointerNorm.x * -0.06 * pointerMix
@@ -282,7 +267,7 @@ export const UiShardFollower = memo(function UiShardFollower() {
 
     if (glowRef.current) {
       glowRef.current.position.copy(pos.current)
-      glowRef.current.intensity = 1.1 + mix * 1.8
+      glowRef.current.intensity = 1.05 + mix * 1.5
       glowRef.current.color.lerpColors(colors.cyan, colors.violet, mix * 0.5)
     }
 
@@ -290,15 +275,15 @@ export const UiShardFollower = memo(function UiShardFollower() {
       rimRef.current.position.copy(pos.current)
       rimRef.current.position.x += 0.25
       rimRef.current.position.y += 0.15
-      rimRef.current.intensity = 0.45 + mix * 0.9
+      rimRef.current.intensity = 0.4 + mix * 0.75
       rimRef.current.color.lerpColors(colors.purple, colors.cyan, mix * 0.4)
     }
   })
 
   return (
     <group>
-      <pointLight ref={glowRef} intensity={1.4} distance={5} decay={2} color="#22d3ee" />
-      <pointLight ref={rimRef} intensity={0.6} distance={3.8} decay={2} color="#7c3aed" />
+      <pointLight ref={glowRef} intensity={1.2} distance={4.5} decay={2} color="#22d3ee" />
+      <pointLight ref={rimRef} intensity={0.55} distance={3.4} decay={2} color="#7c3aed" />
 
       <group ref={rootRef} position={[0, 0.2, 0.15]} scale={0.92}>
         <group ref={mainRef}>
@@ -313,10 +298,15 @@ export const UiShardFollower = memo(function UiShardFollower() {
           <StatCard />
         </group>
 
-        {/* Soft ground glow under the cluster */}
         <mesh position={[0, -0.72, -0.1]} rotation={[-Math.PI / 2, 0, 0]}>
-          <circleGeometry args={[0.85, 32]} />
-          <meshBasicMaterial color="#7c3aed" transparent opacity={0.07} depthWrite={false} blending={THREE.AdditiveBlending} />
+          <circleGeometry args={[0.85, 24]} />
+          <meshBasicMaterial
+            color="#7c3aed"
+            transparent
+            opacity={0.07}
+            depthWrite={false}
+            blending={THREE.AdditiveBlending}
+          />
         </mesh>
       </group>
     </group>

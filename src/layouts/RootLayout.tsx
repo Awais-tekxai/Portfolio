@@ -25,7 +25,7 @@ export function RootLayout() {
     const x = (clientX / window.innerWidth) * 2 - 1
     const y = -(clientY / window.innerHeight) * 2 + 1
     setPointerNorm(x, y)
-  }, 16)
+  }, 32)
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => onPointer(e.clientX, e.clientY)
@@ -71,6 +71,7 @@ export function RootLayout() {
           <FloatingParticles />
         </div>
       </div>
+      <div aria-hidden className="portfolio-grain pointer-events-none fixed inset-0 z-[1]" />
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[400] focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-900"
