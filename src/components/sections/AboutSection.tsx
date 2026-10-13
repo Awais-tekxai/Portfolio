@@ -12,7 +12,7 @@ const milestones = [
     subtitle: `${PROFILE.education.school} · ${PROFILE.education.period}`,
     detail: PROFILE.education.location,
   },
-  ...PROFILE.aboutMilestones.slice(1),
+  ...PROFILE.aboutMilestones,
 ] as const
 
 export function AboutSection() {
@@ -29,7 +29,7 @@ export function AboutSection() {
             aria-hidden
           />
 
-          <div className="relative rounded-3xl border border-white/10 bg-gradient-to-b from-[#020014]/92 via-[#050816]/94 to-[#020014]/92 p-6 shadow-[0_0_80px_rgba(0,0,0,0.35)] backdrop-blur-xl backdrop-saturate-150 sm:p-8 lg:col-start-2 lg:max-w-xl lg:justify-self-end">
+          <div className="relative rounded-3xl border border-white/10 bg-gradient-to-b from-[#020014]/94 via-[#050816]/96 to-[#020014]/94 p-6 shadow-[0_0_80px_rgba(0,0,0,0.35)] sm:p-8 lg:col-start-2 lg:max-w-xl lg:justify-self-end">
             <Reveal>
               <h2 className="font-display text-2xl font-semibold uppercase tracking-[0.28em] text-violet-200/95 sm:text-3xl">
                 About me

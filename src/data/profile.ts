@@ -3,19 +3,19 @@ import type { SocialLink } from '@/types'
 export const PROFILE = {
   name: 'AWAIS KHALID',
   shortName: 'Awais Khalid',
-  role: 'Frontend Engineer / React Developer',
+  role: 'Full Stack Developer',
   taglines: [
-    'Building scalable frontend experiences with React & TypeScript',
-    'Production-ready dashboards, real-time UI, and polished interactions',
-    'Focused on clarity, performance, and maintainable architecture',
+    'Building production web apps end-to-end with React, Next.js & Node.js',
+    'Multi-tenant SaaS, role-based dashboards, and real-time systems',
+    'TypeScript, SQL, Stripe billing, and polished accessible UI',
   ],
   summary:
-    'Frontend Engineer with hands-on experience delivering React.js and Next.js applications for multi-role products, admin dashboards, and data-intensive interfaces. I integrate REST APIs using TanStack Query, structure client state with Zustand, and enforce reliability through Zod-validated forms and strong TypeScript practices. Comfortable implementing protected routing, analytics views, real-time features with Socket.io, and responsive UI with Tailwind CSS and Material UI—from initial build through production release.',
+    'Full Stack Developer with 3 years of experience building and shipping production web applications end-to-end, from React and Next.js frontends to Node.js and Express REST APIs backed by SQL databases. Experienced across multi-tenant SaaS, role-based admin dashboards, and data-intensive interfaces, with a track record of delivering real-time features and secure payment/billing flows. Skilled in TypeScript, Node.js, Express, SQL, TanStack Query, Zustand, Zod-validated forms with React Hook Form, Stripe billing, Socket.io real-time systems, and accessible, responsive UI with Tailwind CSS and Material UI.',
   email: 'awaiskhalid523@gmail.com',
   phone: '+92 308 0488548',
   location: 'Gulberg, Lahore, Pakistan',
   education: {
-    degree: 'BSCS',
+    degree: 'BS Computer Science (BSCS)',
     school: 'Minhaj University',
     period: '2020 – 2024',
     location: 'Lahore, Pakistan',
@@ -23,15 +23,15 @@ export const PROFILE = {
   aboutMilestones: [
     {
       title: 'Core focus',
-      subtitle: 'Product-grade interfaces',
+      subtitle: 'End-to-end product delivery',
       detail:
-        'Role-based dashboards, complex forms, tables, charts, and workflow-driven experiences—built with React, TypeScript, and modern frontend tooling.',
+        'Full-stack SaaS, multi-tenant platforms, and role-based dashboards—React/Next.js on the client, Node.js/Express APIs and SQL on the server.',
     },
     {
       title: 'How I work',
       subtitle: 'Quality, collaboration, delivery',
       detail:
-        'Clear component architecture, API-first integration, accessible layouts, and close coordination with design and backend teams to ship on schedule.',
+        'Clear architecture, secure APIs, accessible UI, and close coordination with design and product teams to ship on schedule.',
     },
   ],
   socials: [
