@@ -12,7 +12,12 @@ export function LenisProvider({ children }: { children: ReactNode }) {
 
     const instance = new Lenis({
       smoothWheel: true,
-      touchMultiplier: 1.65,
+      syncTouch: false,
+      touchMultiplier: 1.45,
+      // Slightly snappier than defaults — feels faster without losing smoothness
+      duration: 1.05,
+      lerp: 0.1,
+      wheelMultiplier: 0.95,
     })
 
     queueMicrotask(() => {
@@ -27,12 +32,23 @@ export function LenisProvider({ children }: { children: ReactNode }) {
     raf = requestAnimationFrame(loop)
 
     const setScrollProgress = usePortfolioStore.getState().setScrollProgress
+    let lastProgress = -1
+    let progressRaf = false
+
     const onScroll = () => {
-      const progress =
-        typeof instance.progress === 'number'
-          ? instance.progress
-          : instance.scroll / Math.max(instance.limit, 1)
-      setScrollProgress(clamp01(progress))
+      if (progressRaf) return
+      progressRaf = true
+      requestAnimationFrame(() => {
+        progressRaf = false
+        const progress =
+          typeof instance.progress === 'number'
+            ? instance.progress
+            : instance.scroll / Math.max(instance.limit, 1)
+        const next = clamp01(progress)
+        if (Math.abs(next - lastProgress) < 0.002) return
+        lastProgress = next
+        setScrollProgress(next)
+      })
     }
 
     instance.on('scroll', onScroll)

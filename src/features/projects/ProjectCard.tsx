@@ -42,7 +42,7 @@ export function ProjectCard({ project, onOpen }: ProjectCardProps) {
   }
 
   return (
-    <motion.div ref={ref} layout className="relative" style={{ perspective: 1200 }}>
+    <motion.div ref={ref} className="relative" style={{ perspective: 1200 }}>
       <motion.div
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
         onMouseMove={handleMove}
@@ -51,12 +51,12 @@ export function ProjectCard({ project, onOpen }: ProjectCardProps) {
       >
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-3xl opacity-80 blur-3xl"
+          className="pointer-events-none absolute inset-0 rounded-3xl opacity-50 blur-2xl"
           style={{ backgroundImage: spotlight }}
         />
         <div
           className={cn(
-            'relative overflow-hidden rounded-3xl border border-white/10 bg-[#050816]/85 p-6 shadow-[0_0_0_1px_rgba(124,58,237,0.12),0_24px_80px_rgba(0,0,0,0.65)] backdrop-blur-2xl',
+            'relative overflow-hidden rounded-3xl border border-white/10 bg-[#050816]/92 p-6 shadow-[0_0_0_1px_rgba(124,58,237,0.12),0_24px_80px_rgba(0,0,0,0.65)]',
           )}
         >
           <motion.div className="pointer-events-none absolute inset-0 opacity-80" style={{ backgroundImage: spotlight }} />
