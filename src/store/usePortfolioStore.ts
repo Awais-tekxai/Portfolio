@@ -26,11 +26,19 @@ export const usePortfolioStore = create<PortfolioState>((set) => ({
   scrollProgress: 0,
   setScrollProgress: (value) => set({ scrollProgress: value }),
   robotJourney: 0,
-  setRobotJourney: (value) => set({ robotJourney: value }),
+  setRobotJourney: (value) =>
+    set((state) => (Math.abs(state.robotJourney - value) < 0.005 ? state : { robotJourney: value })),
   pointerNorm: { x: 0, y: 0 },
-  setPointerNorm: (x, y) => set({ pointerNorm: { x, y } }),
+  setPointerNorm: (x, y) =>
+    set((state) => {
+      if (Math.abs(state.pointerNorm.x - x) < 0.01 && Math.abs(state.pointerNorm.y - y) < 0.01) {
+        return state
+      }
+      return { pointerNorm: { x, y } }
+    }),
   sceneIntensity: 0.35,
-  setSceneIntensity: (value) => set({ sceneIntensity: value }),
+  setSceneIntensity: (value) =>
+    set((state) => (Math.abs(state.sceneIntensity - value) < 0.02 ? state : { sceneIntensity: value })),
   loaderComplete: false,
   setLoaderComplete: (value) => set({ loaderComplete: value }),
 }))

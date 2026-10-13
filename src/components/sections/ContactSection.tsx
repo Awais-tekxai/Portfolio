@@ -30,7 +30,7 @@ export function ContactSection() {
   return (
     <SectionShell
       id="contact"
-      className="border-t border-white/5 bg-gradient-to-b from-[#020014]/93 via-[#050816]/95 to-[#020014] py-28 pb-[max(8rem,calc(7rem+env(safe-area-inset-bottom)))] backdrop-blur-xl lg:pb-28"
+      className="section-cv border-t border-white/5 bg-gradient-to-b from-[#020014]/95 via-[#050816]/97 to-[#020014] py-28 pb-[max(8rem,calc(7rem+env(safe-area-inset-bottom)))] lg:pb-28"
     >
       <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 social-rail-inset lg:grid-cols-[0.95fr_1.05fr]">
         <Reveal>
@@ -60,7 +60,7 @@ export function ContactSection() {
         <Reveal delay={0.08}>
           <motion.form
             onSubmit={onSubmit}
-            className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-6 shadow-[0_0_80px_rgba(124,58,237,0.18)] backdrop-blur-2xl sm:p-8"
+            className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_0_80px_rgba(124,58,237,0.18)] sm:p-8"
           >
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_0%_0%,rgba(34,211,238,0.18),transparent_45%),radial-gradient(circle_at_100%_100%,rgba(124,58,237,0.22),transparent_45%)]" />
             <div className="relative z-10 grid gap-5">
