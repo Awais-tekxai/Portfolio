@@ -1,22 +1,17 @@
+import { AdaptiveDpr, AdaptiveEvents } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
-import { Environment, SoftShadows } from '@react-three/drei'
 import { Suspense, useMemo } from 'react'
 
 import { UiShardFollower } from '@/components/robot/UiShardFollower'
 import { ScrollRig } from '@/components/robot/ScrollRig'
 import { cn } from '@/lib/utils'
-import { usePortfolioStore } from '@/store/usePortfolioStore'
 
-function DynamicLights() {
-  const intensity = usePortfolioStore((s) => s.sceneIntensity)
-  const key = 1.15 + intensity * 1.4
-  const rim = 0.55 + intensity * 0.9
-
+function SceneLights() {
   return (
     <>
-      <ambientLight intensity={0.18 + intensity * 0.12} />
-      <directionalLight position={[3.5, 6, 4]} intensity={key} color="#e9d5ff" castShadow />
-      <directionalLight position={[-4, 2, -2]} intensity={rim} color="#22d3ee" />
+      <ambientLight intensity={0.28} />
+      <directionalLight position={[3.2, 5.5, 3.5]} intensity={1.55} color="#e9d5ff" />
+      <directionalLight position={[-3.5, 1.8, -2]} intensity={0.85} color="#22d3ee" />
     </>
   )
 }
@@ -27,21 +22,24 @@ interface RobotSceneProps {
   variant?: RobotSceneVariant
   /** Lower max DPR on mobile / reduced-motion for performance */
   dprCap?: number
+  /** Pause the render loop when the scene is hidden off-screen */
+  active?: boolean
 }
 
-export function RobotScene({ variant = 'card', dprCap }: RobotSceneProps) {
+export function RobotScene({ variant = 'card', dprCap, active = true }: RobotSceneProps) {
   const isBackdrop = variant === 'backdrop'
 
   const dpr = useMemo(() => {
     const coarse = window.matchMedia('(pointer: coarse)').matches
-    let max = coarse ? 1.25 : 1.75
-    if (isBackdrop && coarse) max = 1.15
-    else if (isBackdrop) max = 1.65
+    let max = coarse ? 1 : 1.35
+    if (isBackdrop && coarse) max = 1
+    else if (isBackdrop) max = 1.25
     if (dprCap !== undefined) max = Math.min(max, dprCap)
     return [1, max] as [number, number]
   }, [isBackdrop, dprCap])
 
   const bgHex = '#06060d'
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches
 
   return (
     <div
@@ -57,26 +55,32 @@ export function RobotScene({ variant = 'card', dprCap }: RobotSceneProps) {
         />
       ) : null}
       <Canvas
-        shadows
         className={cn('!touch-none', isBackdrop && 'h-full min-h-0 w-full')}
         style={isBackdrop ? { height: '100%', width: '100%' } : undefined}
         dpr={dpr}
-        gl={{ alpha: true, antialias: true, powerPreference: 'high-performance' }}
+        frameloop={active ? 'always' : 'never'}
+        performance={{ min: 0.5, debounce: 200 }}
+        gl={{
+          alpha: true,
+          antialias: !isMobile,
+          powerPreference: 'high-performance',
+          stencil: false,
+          depth: true,
+        }}
         onCreated={({ gl, scene }) => {
-          if (!isBackdrop) return
           gl.setClearColor(0x000000, 0)
           gl.domElement.style.background = 'transparent'
-          scene.background = null
+          if (isBackdrop) scene.background = null
         }}
         camera={{ position: [0, 0.35, 4.35], fov: isBackdrop ? 34 : 36, near: 0.1, far: 40 }}
       >
         {!isBackdrop ? <color attach="background" args={[bgHex]} /> : null}
+        <AdaptiveDpr pixelated />
+        <AdaptiveEvents />
         <Suspense fallback={null}>
-          <DynamicLights />
-          {isBackdrop ? null : <SoftShadows size={18} samples={12} focus={0.6} />}
+          <SceneLights />
           <ScrollRig />
           <UiShardFollower />
-          <Environment preset="city" background={false} />
         </Suspense>
       </Canvas>
     </div>

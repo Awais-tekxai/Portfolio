@@ -21,7 +21,7 @@ export function ProjectsSection() {
   }
 
   return (
-    <SectionShell id="projects" className="border-t border-white/5 bg-[#020014]/88 py-28 backdrop-blur-xl">
+    <SectionShell id="projects" className="section-cv border-t border-white/5 bg-[#020014]/92 py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 social-rail-inset">
         <Reveal>
           <div className="mb-12 max-w-2xl">

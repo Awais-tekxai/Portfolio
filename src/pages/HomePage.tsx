@@ -10,7 +10,7 @@ import { PROFILE } from '@/data/profile'
 
 export function HomePage() {
   useEffect(() => {
-    document.title = `${PROFILE.shortName} | Frontend Engineer`
+    document.title = `${PROFILE.shortName} | Full Stack Developer`
   }, [])
 
   return (
